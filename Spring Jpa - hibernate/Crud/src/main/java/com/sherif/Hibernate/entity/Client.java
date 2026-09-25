@@ -10,6 +10,16 @@ public class Client {
     private Long id;
 
     private String name;
+    private Client client;
+
+    public Client(Client client) {
+        this.client = client;
+    }
+
+    public Client() {
+
+    }
+
 
     public String getName() {
         return name;
