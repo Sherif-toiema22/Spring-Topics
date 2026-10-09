@@ -2,6 +2,7 @@ package com.sherif.Hibernate.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "client")
@@ -13,6 +14,8 @@ public class Client {
     private Long id;
 
     private String name;
+
+    @Transient
     private Client client;
 
     public Client(Client client) {
