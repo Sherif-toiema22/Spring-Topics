@@ -2,6 +2,7 @@ package com.sherif.Hibernate.service;
 
 
 import com.sherif.Hibernate.entity.Client;
+import com.sherif.Hibernate.entity.CreateUserRequest;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
@@ -21,69 +22,49 @@ public class ClientServiceImpl implements ClientService{
         this.entityManager = entityManager;
     }
 
-
-
 //    @Transactional
-//    public Client create(Client client) {
-//        entityManager.persist(client);
-//        return client;
+//    public Client create(CreateUserRequest request) {
+//        Client client = new Client();
+//        client.setName(request.name());
+//        client.setEmail(request.email());
+//
+//        return clientRepository.save(client);
 //    }
-
-
-//    @Transactional
-//    public Client updateUser(Long id, String name, String email) {
-//
-//        Client user = entityManager.find(Client.class, id);
-//
-//        if (user == null) {
-//            throw new RuntimeException("User not found");
-//        }
-//
-//        user.setName(name);
-//        user.setEmail(email);
-//
-//        return user;
-//    }
-
 
 
     @Override
     @Transactional
-    public Client create(Client client){
-        Client client1=new Client(client);
-        entityManager.persist(client1);
-        return client1;
-    }
-
-    @Override
-    public Client findById(Long id) {
-        Client client = entityManager.find(Client.class, id);
-        if (client == null) {
-            throw new RuntimeException("User not found with id: " + id);
-        }
+    public Client create(Client client) {
+        entityManager.persist(client);
         return client;
     }
 
     @Override
+    public Client findById(Long id) {
+        return entityManager.find(Client.class,id);
+    }
+
+    @Override
     public List<Client> findAll() {
-        TypedQuery<Client> query = entityManager.createQuery(
-                "SELECT u FROM Client u", Client.class
-        );
-        return query.getResultList();
+        TypedQuery<Client> theQuery = entityManager.createQuery("FROM Client",Client.class);
+        return theQuery.getResultList();
     }
 
     @Override
-    @Transactional
+    public List<Client> findByLastName(String theLastName) {
+        TypedQuery<Client> typedQuery=entityManager.createQuery(
+                "FROM Client WHERE lastName=:thData",Client.class);
+        typedQuery.setParameter("thData",theLastName);
+        return typedQuery.getResultList();
+    }
+
+    @Override
     public Client update(Client client) {
-        return entityManager.merge(client);
+        return null;
     }
 
     @Override
-    @Transactional
-    public void  delete(Long id){
-        Client client=entityManager.find(Client.class,id);
-        if (client!=null)
-            entityManager.remove(client);
+    public void delete(Long id) {
 
     }
 }

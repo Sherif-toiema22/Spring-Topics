@@ -41,6 +41,7 @@ public class ClientServiceImpl implements ClientService{
         return client1;
     }
 
+
     @Override
     public Client findById(Long id) {
         Client client = entityManager.find(Client.class, id);
@@ -57,6 +58,22 @@ public class ClientServiceImpl implements ClientService{
         );
         return query.getResultList();
     }
+
+
+//    @Transactional
+//    public Client updateUser(Long id, String name, String email) {
+//
+//        Client user = entityManager.find(Client.class, id);
+//
+//        if (user == null) {
+//            throw new RuntimeException("User not found");
+//        }
+//
+//        user.setName(name);
+//        user.setEmail(email);
+//
+//        return user;
+//    }
 
     @Override
     @Transactional
