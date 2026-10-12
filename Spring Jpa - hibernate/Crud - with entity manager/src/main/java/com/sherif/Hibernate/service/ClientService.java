@@ -11,6 +11,7 @@ public interface ClientService {
     List<Client> findAll();
     List<Client> findByLastName(String theLastName);
     Client update(Client client);
+    int update(Long id, String firstName, String lastName, String email);
     void delete(Long id);
 
 }

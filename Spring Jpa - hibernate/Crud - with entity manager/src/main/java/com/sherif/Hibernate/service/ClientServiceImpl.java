@@ -4,6 +4,7 @@ package com.sherif.Hibernate.service;
 import com.sherif.Hibernate.entity.Client;
 import com.sherif.Hibernate.entity.CreateUserRequest;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,8 +60,26 @@ public class ClientServiceImpl implements ClientService{
     }
 
     @Override
+    @Transactional
     public Client update(Client client) {
-        return null;
+        return entityManager.merge(client);
+    }
+
+
+    @Override
+    @Transactional
+    public int update(Long id, String firstName, String lastName, String email) {
+
+        Query query = entityManager.createQuery(
+                "UPDATE Client c SET c.firstName = :firstName, " +
+                        "c.lastName = :lastName, c.email = :email WHERE c.id = :id");
+
+        query.setParameter("firstName", firstName);
+        query.setParameter("lastName", lastName);
+        query.setParameter("email", email);
+        query.setParameter("id", id);
+
+        return query.executeUpdate();   // عدد الصفوف المتأثرة
     }
 
     @Override
