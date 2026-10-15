@@ -83,7 +83,15 @@ public class ClientServiceImpl implements ClientService{
     }
 
     @Override
+    @Transactional
     public void delete(Long id) {
 
+
+    }
+
+    @Override
+    @Transactional
+    public void deleteAll(Long id) {
+        entityManager.createQuery("DELETE From Client ").executeUpdate();
     }
 }
