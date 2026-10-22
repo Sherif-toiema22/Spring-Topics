@@ -22,9 +22,4 @@ public class Client {
     @Transient
     private Client client;
 
-
-    public Client(String mShelf, String mail) {
-        this.name=name;
-        this.email=email;
-    }
 }
