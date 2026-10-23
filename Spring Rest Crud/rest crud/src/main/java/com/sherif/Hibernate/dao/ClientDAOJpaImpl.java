@@ -23,6 +23,21 @@ public class ClientDAOJpaImpl implements ClientDao {
 
 
     @Override
+    public Client create(Client client) {
+//        Client client1=new Client();
+//        entityManager.per
+        return entityManager.merge(client);
+    }
+
+    @Override
+    public Client findById(Long id) {
+        Client client=entityManager.find(Client.class,id);
+        if (client ==null)
+            throw new RuntimeException("User not found with id: " + id);
+        return client;
+    }
+
+    @Override
     public List<Client> findAll() {
 
         // create a query
@@ -33,6 +48,20 @@ public class ClientDAOJpaImpl implements ClientDao {
 
         // return the results
         return clients;
+    }
+
+    @Override
+    public Client update(Client client) {
+        return entityManager.merge(client);
+    }
+
+    @Override
+    public void delete(Long id) {
+        Client client=entityManager.find(Client.class,id);
+        if (client ==null)
+            throw new RuntimeException("User not found with id: " + id);
+        entityManager.remove(client);
+
     }
 }
 

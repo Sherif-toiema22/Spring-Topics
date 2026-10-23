@@ -4,6 +4,7 @@ package com.sherif.Hibernate.service;
 import com.sherif.Hibernate.dao.ClientDAOJpaImpl;
 import com.sherif.Hibernate.dao.ClientDao;
 import com.sherif.Hibernate.entity.Client;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,8 +24,32 @@ public class ClientServiceImpl implements ClientService{
 
 
     @Override
+    @Transactional
+    public Client create(Client client) {
+        return clientDAO.create(client);
+    }
+    @Override
     public List<Client> findAll() {
         return clientDAO.findAll();
+    }
+
+    @Override
+    public Client findById(Long id) {
+        return null;
+    }
+
+
+
+    @Override
+    @Transactional
+    public Client update(Client client) {
+        return clientDAO.update(client);
+    }
+
+    @Override
+    @Transactional
+    public void delete(Long id) {
+        clientDAO.delete(id);
     }
 
 
